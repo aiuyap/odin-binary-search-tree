@@ -60,7 +60,26 @@ function Tree(arr) {
     return currNode;
   }
 
-  return { root, insert, remove };
+  function find(value, currNode) {
+    if (currNode === undefined) {
+      currNode = root;
+    }
+    if (value === currNode.data) {
+      return currNode;
+    }
+
+    if (currNode.left !== null || currNode.right !== null) {
+      if (value < currNode.data) {
+        return find(value, currNode.left);
+      } else if (value > currNode.data) {
+        return find(value, currNode.right);
+      }
+    } else {
+      console.log("Data not found");
+    }
+  }
+
+  return { root, insert, remove, find };
 }
 
 function getSuccessor(curr) {
@@ -99,5 +118,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
-test.remove(4);
 prettyPrint(test.root);
+console.log(test.find(12));
