@@ -1,0 +1,16 @@
+{
+  "name": "odin-binary-search-tree",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The Odin Project - JavaScript Course - Project: Binary Search Trees",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
