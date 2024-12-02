@@ -10,7 +10,33 @@ function Tree(arr) {
   const sortedArr = mergeSort(arr);
   const root = buildTree(sortedArr, 0, sortedArr.length - 1);
 
-  return root;
+  function insert(value, currNode) {
+    if (currNode === undefined) {
+      currNode = root;
+    }
+
+    if (value === currNode.data) {
+      console.log("Value already exists in the tree");
+    }
+
+    if (value < currNode.data) {
+      if (currNode.left !== null) {
+        insert(value, currNode.left);
+      } else {
+        const newValue = Node(value);
+        currNode.left = newValue;
+      }
+    } else if (value > currNode.data) {
+      if (currNode.right !== null) {
+        insert(value, currNode.right);
+      } else {
+        const newValue = Node(value);
+        currNode.right = newValue;
+      }
+    }
+  }
+
+  return { root, insert };
 }
 
 function buildTree(arr, start, end) {
@@ -39,6 +65,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const testArr = [7, 6, 5, 4, 3, 2, 1, 2, 2, 2, 2];
+const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
-prettyPrint(test);
+test.insert(13);
+prettyPrint(test.root);
