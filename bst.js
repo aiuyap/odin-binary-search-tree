@@ -97,7 +97,22 @@ function Tree(arr) {
     }
   }
 
-  return { root, insert, remove, find, levelOrder };
+  function preOrder(callback, currNode) {
+    if (currNode === undefined) {
+      currNode = root;
+    }
+    if (callback === undefined) {
+      throw new Error("Function: preOrder requires callback!");
+    }
+    if (currNode === null) {
+      return;
+    }
+    callback(currNode);
+    preOrder(callback, currNode.left);
+    preOrder(callback, currNode.right);
+  }
+
+  return { root, insert, remove, find, levelOrder, preOrder };
 }
 
 function getSuccessor(curr) {
@@ -137,6 +152,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
 prettyPrint(test.root);
-test.levelOrder((x) => {
+test.preOrder((x) => {
   console.log(x.data);
 });
