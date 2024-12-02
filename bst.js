@@ -36,7 +36,39 @@ function Tree(arr) {
     }
   }
 
-  return { root, insert };
+  function remove(value, currNode) {
+    if (currNode === undefined) {
+      currNode = root;
+    }
+    if (currNode === null) {
+      return currNode;
+    }
+
+    if (currNode.data > value) {
+      currNode.left = remove(value, currNode.left);
+    } else if (currNode.data < value) {
+      currNode.right = remove(value, currNode.right);
+    } else {
+      if (currNode.left === null) return currNode.right;
+
+      if (currNode.right === null) return currNode.left;
+
+      let succ = getSuccessor(currNode);
+      currNode.data = succ.data;
+      currNode.right = remove(succ.data, currNode.right);
+    }
+    return currNode;
+  }
+
+  return { root, insert, remove };
+}
+
+function getSuccessor(curr) {
+  curr = curr.right;
+  while (curr !== null && curr.left !== null) {
+    curr = curr.left;
+  }
+  return curr;
 }
 
 function buildTree(arr, start, end) {
@@ -67,5 +99,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
-test.insert(13);
+test.remove(4);
 prettyPrint(test.root);
