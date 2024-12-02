@@ -183,7 +183,17 @@ function Tree(arr) {
     return false;
   }
 
-  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height, depth, isBalanced };
+  function rebalance() {
+    let nodes = [];
+
+    inOrder(root, (x) => {
+      nodes.push(x);
+    });
+
+    root = buildTree(nodes, 0, nodes.length - 1);
+  }
+
+  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height, depth, isBalanced, rebalance };
 }
 
 function getSuccessor(curr) {
