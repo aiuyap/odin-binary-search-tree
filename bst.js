@@ -143,16 +143,35 @@ function Tree(arr) {
   }
 
   function height(node) {
-    if (node === null) {
-      return 0;
-    }
+    if (node === null) return 0;
+
     let lHeight = height(node.left);
     let rHeight = height(node.right);
 
     return Math.max(lHeight, rHeight) + 1;
   }
 
-  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height };
+  function depth(node, currNode) {
+    if (node === null) return 0;
+    if (node === root) return 1;
+    if (currNode === undefined) currNode = root;
+
+    if (node === currNode) return 1;
+
+    if (currNode.left !== null) {
+      const left = depth(node, currNode.left);
+      if (left !== 0) return 1 + left;
+    }
+
+    if (currNode.right !== null) {
+      const right = depth(node, currNode.right);
+      if (right !== 0) return 1 + right;
+    }
+
+    return 0;
+  }
+
+  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height, depth };
 }
 
 function getSuccessor(curr) {
@@ -192,4 +211,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
 prettyPrint(test.root);
-console.log(test.height(test.root));
+console.log(test.depth(test.find(14)));
