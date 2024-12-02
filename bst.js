@@ -171,7 +171,19 @@ function Tree(arr) {
     return 0;
   }
 
-  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height, depth };
+  function isBalanced(node) {
+    if (node === undefined) node = root;
+    if (node == null) return true;
+
+    let lh = height(node.left);
+    let rh = height(node.right);
+
+    if (Math.abs(lh - rh) <= 1 && isBalanced(node.left) == true && isBalanced(node.right) == true) return true;
+
+    return false;
+  }
+
+  return { root, insert, remove, find, levelOrder, preOrder, inOrder, postOrder, height, depth, isBalanced };
 }
 
 function getSuccessor(curr) {
@@ -210,5 +222,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const testArr = [2, 4, 6, 8, 10, 12, 14];
 const test = Tree(testArr);
+test.insert(29);
+test.insert(39);
 prettyPrint(test.root);
-console.log(test.depth(test.find(14)));
+console.log(test.isBalanced());
