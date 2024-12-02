@@ -8,7 +8,7 @@ function Node(data) {
 
 function Tree(arr) {
   const sortedArr = mergeSort(arr);
-  const root = buildTree(sortedArr, 0, arr.length - 1);
+  const root = buildTree(sortedArr, 0, sortedArr.length - 1);
 
   return root;
 }
@@ -39,6 +39,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const testArr = [7, 6, 5, 4, 3, 2, 1];
+const testArr = [7, 6, 5, 4, 3, 2, 1, 2, 2, 2, 2];
 const test = Tree(testArr);
 prettyPrint(test);

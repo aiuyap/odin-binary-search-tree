@@ -1,4 +1,5 @@
-export function mergeSort(array) {
+export function mergeSort(unsortedArr) {
+  const array = removeDuplicates(unsortedArr);
   let mid = Math.floor(array.length / 2);
   if (array.length === 1) {
     return array;
@@ -20,4 +21,8 @@ export function mergeSort(array) {
     }
     return [...sortedArr, ...left, ...right];
   }
+}
+
+function removeDuplicates(arr) {
+  return arr.filter((value, index) => arr.indexOf(value) === index);
 }
