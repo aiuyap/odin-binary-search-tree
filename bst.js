@@ -6,9 +6,9 @@ function Node(data) {
   return { data, left, right };
 }
 
-function Tree(arr) {
+export function Tree(arr) {
   const sortedArr = mergeSort(arr);
-  const root = buildTree(sortedArr, 0, sortedArr.length - 1);
+  let root = buildTree(sortedArr, 0, sortedArr.length - 1);
 
   function insert(value, currNode) {
     if (currNode === undefined) {
@@ -186,9 +186,9 @@ function Tree(arr) {
   function rebalance() {
     let nodes = [];
 
-    inOrder(root, (x) => {
+    inOrder((x) => {
       nodes.push(x);
-    });
+    }, root);
 
     root = buildTree(nodes, 0, nodes.length - 1);
   }
@@ -217,7 +217,7 @@ function buildTree(arr, start, end) {
   return root;
 }
 
-const prettyPrint = (node, prefix = "", isLeft = true) => {
+export const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
   }
@@ -229,10 +229,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
-
-const testArr = [2, 4, 6, 8, 10, 12, 14];
-const test = Tree(testArr);
-test.insert(29);
-test.insert(39);
-prettyPrint(test.root);
-console.log(test.isBalanced());
